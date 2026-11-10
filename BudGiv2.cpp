@@ -9,6 +9,7 @@ using namespace std;
 void setBudget ();
 void addExpense ();
 void viewExpense ();
+double calculateTotalExpense ();
 void budgetSummary ();
 
 const int MAX_EXPENSE = 100; //Maximum value or input allowed for the user to make.
@@ -27,7 +28,6 @@ expense Expenses [MAX_EXPENSE]; //to call the data types be stored in the Max Ex
 
 int main() {
     int choice;
-    char confirmChoice;
 
     do {
         cout << "\n===============================\n";
@@ -37,8 +37,7 @@ int main() {
         cout << "2. Add Expense\n";
         cout << "3. View Expense History\n";
         cout << "4. View Budget Summary\n";
-        cout << "5. Delete Expense\n";
-        cout << "6. Exit\n";
+        cout << "5. Exit\n";
         cout << "==================================\n";
 
         cout << "Enter your Choice: ";
@@ -70,18 +69,12 @@ int main() {
             cout << "\nInvalid Choice! Please Select from choices 1 - 5.\n";
         }
 
-        cout << "\nDo you want to continue? (Y/N): ";
-        cin >> confirmChoice;
-
-        while (confirmChoice != 'Y' && confirmChoice != 'y' && confirmChoice != 'N' && confirmChoice != 'n') {
-            cout << "Invalid input! Enter Y or N: ";
-            cin >> confirmChoice;
-        }
-    } while (confirmChoice == 'Y' || confirmChoice == 'y');
-      cout << "\nThank you for using the Budget Tracker!\n";
+        
+    } while (choice != 5);
 
     return 0;
 }
+
 
 void setBudget () {
     cout << "\n========== SET MONTHLY BUDGET ==========\n";
@@ -105,10 +98,10 @@ void addExpense () {
     cout << "\nEnter Expense Name: ";
     getline (cin, Expenses[expenseCount].expenseName);
     
-    cout << "\nEnter Expense Category: ";
+    cout << "Enter Expense Category: ";
     getline (cin, Expenses[expenseCount].expenseCategory);
 
-    cout << "\nEnter Expense Amount:PHP ";
+    cout << "Enter Expense Amount:PHP ";
     cin >> Expenses[expenseCount].expenseAmount;
 
     expenseCount++;
@@ -119,6 +112,60 @@ void addExpense () {
 }
 
 void viewExpense () {
-    
+    cout << "\n========== Expense History ==========\n";
 
+    if (expenseCount == 0) {
+        cout << "\nNo Expense is Recorded\n";
+
+        return;
+    }
+
+    for (int i = 0; i < expenseCount; i++) {
+        cout << "\nExpense #" << i + 1 <<endl;
+        cout << "\nName: " << Expenses[i].expenseName <<endl;
+        cout << "\nCategory: " << Expenses[i].expenseCategory <<endl;
+        cout << "\nAmount:PHP " << Expenses[i].expenseAmount << fixed << setprecision(2) <<endl;
+    }
+}
+
+double calculateTotalExpense() {
+    double total = 0;
+
+    for (int i = 0; i < expenseCount; i++) {
+        total += Expenses[i].expenseAmount;
+    }
+
+    return total;
+}
+
+void budgetSummary () {
+    double totalExpense, remainingBudget, percentageUsed; //declaration of variables
+
+    totalExpense = calculateTotalExpense();
+    remainingBudget = monthlyBudget - totalExpense;
+
+    if (monthlyBudget > 0) {
+        percentageUsed = (totalExpense / monthlyBudget) * 100;
+    } else {
+        percentageUsed = 0;
+    }
+
+    cout << "\n========== BUDGET SUMMARY ==========\n";
+
+    cout << fixed << setprecision(2);
+
+    cout << "Monthly Budget:PHP " << monthlyBudget <<endl;
+    cout << "Total Expense:PHP " << totalExpense <<endl;
+    cout << "Remaining Budget:PHP " << remainingBudget <<endl;
+    cout << "Budget Used: " << percentageUsed << "%" <<endl;
+
+    cout << "\n=====================================\n";
+
+    if (remainingBudget < 0) {
+        cout << "WARNING: You have exceeded your budget!\n";
+    } else if (percentageUsed >= 80) {
+        cout << "WARNING: You have used most of your budget.\n";
+    } else {
+        cout << "Your spending is still within your budget.\n";
+    }
 }
