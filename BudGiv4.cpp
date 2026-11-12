@@ -7,14 +7,13 @@ using namespace std;
 
 //function decleration
 void setBudget();
-void addBalance ();
-void addExpense ();
-void viewExpense ();
-double calculateTotalExpense ();
-void budgetSummary ();
+void addBalance();
+void addExpense();
+void viewExpense();
+double calculateTotalExpense();
+void budgetSummary();
 
 const int MAX_EXPENSE = 100; //Maximum value or input allowed for the user to make.
-
 
 int expenseCount = 0; //variable decleration
 double monthlyBudget = 0;
@@ -90,7 +89,7 @@ int main() {
     return 0;
 }
 
-void setBudget () {
+void setBudget() {
     cout << "\n========== SET MONTHLY BUDGET ==========\n";
     
     cout << "Enter your Monthly Budget: PHP "; //user sets the monthly budget.
@@ -108,7 +107,7 @@ void setBudget () {
     return;
 }
 
-void addBalance () {
+void addBalance() {
     cout << "\n========== ADD BALANCE ==========\n";
 
     cout << "\nEnter the Amount: PHP "; //User adds a balance
@@ -126,7 +125,7 @@ void addBalance () {
     cout << "\nCurrent Balance: PHP " << Balance.remainingBalance << fixed << setprecision(2) <<endl; //current balance of the user
 }
 
-void addExpense () {
+void addExpense() {
     if (expenseCount >= MAX_EXPENSE) {
         cout << "\nExpense Limit is Reached!\n"; //if expense exceeds 100. display message.
         return;
@@ -187,7 +186,7 @@ double calculateTotalExpense() {
     return total;
 }
 
-void budgetSummary () {
+void budgetSummary() {
     double totalExpense, remainingBudget, percentageUsed; //declaration of variables
 
     totalExpense = calculateTotalExpense();
