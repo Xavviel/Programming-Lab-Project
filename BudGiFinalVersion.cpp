@@ -237,7 +237,7 @@ void budgetSummary() {
     cout << left << setw(19) << "Wallet Balance"
          << ": PHP " << right << setw(10) << entry.remainingBalance << '\n';
     cout << left << setw(19) << "Precentage Used"
-         << ": % " << right << setw(10) << percentageUsed << '\n';
+         << ": % " << right << setw(12) << percentageUsed << '\n';
     cout << "\n------------------------------------\n";
 
     if (monthlyBudget <= 0) {
